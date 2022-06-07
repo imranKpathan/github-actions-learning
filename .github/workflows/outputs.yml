@@ -17,7 +17,7 @@ jobs:
       current: ${{ steps.step1.outputs.tag }}
     steps:
       - id: step1
-        run: anothrNick/github-tag-action@1.39.0
+        uses: anothrNick/github-tag-action@1.39.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERBOSE: true
