@@ -1,5 +1,4 @@
 name: Build with Maven
-
 on:
   workflow_dispatch:
     inputs:
@@ -9,19 +8,15 @@ on:
         required: true
         default: 'true'
   push:
-    # ...
-  pull_request:
-    # ...
-
+    branches: [ "main" ]
 jobs:
   build:
-    # (...)
+    runs-on: ubuntu-latest
     steps:
       - name: Print workflow input variables
         run: |
           echo "Input variable:           ${{ github.event.inputs.skip-tests }}"
           echo "Simple expression:        ${{ github.event.inputs.skip-tests != 'false' }}"
           echo "Quasi-ternary expression: ${{ github.event.inputs.skip-tests != 'false' && 'skipping' || 'executing' }}"
-      # (...)
       - name: Build + package, ${{ github.event.inputs.skip-tests != 'false' && 'skipping' || 'executing' }} tests
-        run: mvn --errors --batch-mode -DskipTests=${{ github.event.inputs.skip-tests != 'false' }} clean verify
+        run: echo "mvn --errors --batch-mode -DskipTests=${{ github.event.inputs.skip-tests != 'false' }} clean verify"
