@@ -12,6 +12,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if:  ${{ inputs.print_tags }}
+    steps:
+      - name: Print workflow input variables
+        run: |
+          echo "Input variable:           ${{ github.event.inputs.skip-tests }}"
+          echo "Simple expression:        ${{ github.event.inputs.skip-tests != 'false' }}"
+          echo "Quasi-ternary expression: ${{ github.event.inputs.skip-tests != 'false' && 'skipping' || 'executing' }}"
+      - name: Build + package, ${{ github.event.inputs.skip-tests != 'false' && 'skipping' || 'executing' }} tests
+        run: echo "mvn --errors --batch-mode -DskipTests=${{ github.event.inputs.skip-tests != 'false' }} clean verify"
+  build-skipFalse:
+    runs-on: ubuntu-latest
+    if:  ${{ inputs.print_tags != 'false'}}
     steps:
       - name: Print workflow input variables
         run: |
