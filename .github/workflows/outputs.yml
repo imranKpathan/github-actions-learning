@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }}
+    if:  ${{ inputs.skip-tests }}
     steps:
       - name: Print workflow input variables
         run: |
@@ -23,7 +23,7 @@ jobs:
         run: echo "mvn --errors --batch-mode -DskipTests=${{ github.event.inputs.skip-tests != 'false' }} clean verify"
   build-skipFalse:
     runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags != 'false'}}
+    if:  ${{ inputs.skip-tests != 'false'}}
     steps:
       - name: Print workflow input variables
         run: |
